@@ -1,0 +1,24 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+   
+    "dev":"tsc && node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishal4dev/ts-speedrun.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishal4dev/ts-speedrun/issues"
+  },
+  "homepage": "https://github.com/vishal4dev/ts-speedrun#readme",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
