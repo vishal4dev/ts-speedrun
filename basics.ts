@@ -103,6 +103,14 @@ undefined and null - > null: use it when you want to represent an absence of val
 undefined: use it when a variable has been declared but not assigned a value, it acts as a placeholder. (the type becomes any)
 
 Primite types: string, number, boolean, null, undefined 
+
+Type	         Predicate
+string	       typeof s === "string"
+number	       typeof n === "number"
+boolean	       typeof b === "boolean"
+undefined	   typeof undefined === "undefined"
+function	   typeof f === "function"
+array	       Array.isArray(a)
 ***************************************************/
 
 //Type Inference
