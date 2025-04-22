@@ -28,7 +28,45 @@ let runtimeVar = "This is a runtime variable";
 let message: string = "Hello, TypeScript!";
 let count: number = 42;
 let isActive: boolean = true;
-let anyValue: any = "This can be anything"; // any type can hold any value ,the type will be determined at runtime
+
+let anyValue: any = "This can be anything"; // any type can hold any value ,the type will be determined at runtime, no type checking
+
+//safer than any, as it requires type checking before use
+let unknownValue: unknown = "This can also be anything"; // unknown type is safer than any, as it requires type checking before use
+
+//Type Assertion : checks the type of a variable at runtime and allows you to treat it as a specific type. It is used when you are sure about the type of a variable but TypeScript cannot infer it.
+let someVal:unknown = 1;
+if(typeof someVal === 'number'){
+    const res = someVal + 1; // type assertion
+}else if(typeof someVal === 'string'){
+    const res = someVal + "1"; // type assertion
+
+}
+
+//Anothe way to handle unknown type is to use type casting
+
+let someVal2: unknown = 1;
+const rse = (someVal2 as number) + 1; // type casting
+
+/**
+ * //Example as to why use unknown type
+ * 
+ * function processValue(value: unknown): void {
+ *    if (typeof value === "string") {  
+ *       console.log("String value:", value);
+ *   } else if (typeof value === "number") {
+ *      console.log("Number value:", value);
+ *   } else {
+ *      console.log("Unknown type");
+ *   }
+ * 
+ * }
+ * 
+ * processValue("Hello"); // String value: Hello
+ * processValue(42); // Number value: 42
+ * processValue(true); // Unknown type
+ * 
+ */
 
 
 
@@ -100,6 +138,7 @@ const multiply = (a: number, b: number): number => {
 console.log(multiply(5, 10));
 
 //4 : Optional Parameters
+// Optional parameters are parameters that may or may not be provided when calling a function. They are denoted by a question mark (?) after the parameter name.
 function greetUser(name: string, age?: number): string {
     if (age) {
         return `Hello, ${name}! You are ${age} years old.`;
@@ -115,6 +154,32 @@ function greetUserWithDefault(name: string, age: number = 18): string {
 }
 console.log(greetUserWithDefault("Vishal"));
 console.log(greetUserWithDefault("Vishal", 25));
+
+//Call function function
+//The function can be called with a function reference and the parameters can be passed to it.
+
+// This is useful when you want to pass a function as an argument to another function.
+function callFunction(fn: (name: string) => void, name: string): void {
+    fn(name);
+}
+
+//Example function to be passed
+function mul(x:number,y:number):number{
+    return x*y;
+}
+
+function div(x:number,y:number):number{
+    return x/y;
+}
+
+//Calling the function
+function callFunc(fn:(x:number,y:number) => number,x:number,y:number):number{
+    return fn(x,y);
+}
+
+console.log(callFunc(mul, 5, 10)); // Output: 50
+
+
 
 //6: Rest Parameters
 function sum(...numbers: number[]): number {
@@ -181,3 +246,25 @@ console.log(person.greet());
  * 
  * 2. A class, on the other hand, is a blueprint for creating objects with properties and methods, and it can include implementation details.
  */
+
+/********************************************** */
+/* Optional Chaining */
+//used to safely access deeply nested properties of an object without having to check if each property in the chain exists. It prevents runtime errors when trying to access properties of `undefined` or `null` values.
+const arr = [{name: "Vishal", age: 25}, {name: "John", age: 30}];
+
+const Username = arr.pop()?.name; // Optional chaining
+
+/********************************************** */
+/*Bang operator */
+// The bang operator is used to assert that a value is not null or undefined. It tells TypeScript that you are sure the value will not be null or undefined at that point in the code.
+
+const userName = arr.pop()!.name; // Bang operator
+// This is useful when you are certain that the value will not be null or undefined, but TypeScript cannot infer it.
+// However, be cautious when using the bang operator, as it can lead to runtime errors if the value is indeed null or undefined.
+/********************************************** */
+
+/*Bang vs optional chaining* */
+// The bang operator (`!`) is used to assert that a value is not null or undefined, while optional chaining (`?.`) is used to safely access properties of an object without throwing an error if the object is null or undefined.
+// Optional chaining returns `undefined` if the value is null or undefined, while the bang operator will throw an error if the value is null or undefined.
+// Use optional chaining when you want to safely access properties, and use the bang operator when you are sure the value is not null or undefined.
+/********************************************** */
